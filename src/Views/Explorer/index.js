@@ -17,7 +17,7 @@ export default class Explorer extends Component {
         employeePosition : "",
         directSubordinates : [],
         nonDirectSubordinates : [],
-        darkMode : false,
+        noResult: false,
         error: null,
     };
 
@@ -31,14 +31,14 @@ export default class Explorer extends Component {
                 (result) => {
                     let directSubordinates = this.state.directSubordinates;
                     let employeePosition = this.state.employeePosition;
-
+                    
                     if (result[1]) {
                         directSubordinates = result[1]["direct-subordinates"]
                         employeePosition = result[0];
                     }
                     this.setState({
-                        employeeName: employeeName,
-                        isLoaded: true,
+                        employeeName: result.length ? employeeName : "No matching results",
+                        noResult: false,
                         employeePosition: employeePosition,
                         directSubordinates: directSubordinates,
                         nonDirectSubordinates: []
@@ -52,7 +52,6 @@ export default class Explorer extends Component {
 
                 (error) => {
                     this.setState({
-                        isLoaded: true,
                         error
                     });
                 }
@@ -60,6 +59,10 @@ export default class Explorer extends Component {
 
         } catch (err) {
             console.log(err);
+            this.setState({
+                error: err,
+                noResult: true,
+            })
         }
     }
 

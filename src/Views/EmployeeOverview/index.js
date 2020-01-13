@@ -5,19 +5,22 @@ const API = "http://api.additivasia.io/api/v1/assignment/employees/";
 
 class EmployeeOverview extends Component {
 
-    state = {
-        employeeName : "",
-        employeePosition : "",
-        directSubordinates : [],
-        nonDirectSubordinates : [],
-        darkMode : false,
-        error: null,
-    };
+
 
     componentDidMount() {
         const { params } = this.props.match
         this.getEmployeeData(params.employeeName);
     }
+
+
+    state = {
+        employeeName : "",
+        employeePosition : "",
+        directSubordinates : [],
+        nonDirectSubordinates : [],
+        noResult: false,
+        error: null,
+    };
 
 
     async getEmployeeData(employeeName) {
@@ -28,15 +31,16 @@ class EmployeeOverview extends Component {
                 .then(
                 (result) => {
                     let directSubordinates = this.state.directSubordinates;
+                    let employeePosition = this.state.employeePosition;
                     
-
                     if (result[1]) {
                         directSubordinates = result[1]["direct-subordinates"]
+                        employeePosition = result[0];
                     }
                     this.setState({
-                        employeeName: employeeName,
-                        isLoaded: true,
-                        employeePosition: result[0],
+                        employeeName: result.length ? employeeName : "No matching results",
+                        noResult: false,
+                        employeePosition: employeePosition,
                         directSubordinates: directSubordinates,
                         nonDirectSubordinates: []
                     });
@@ -46,9 +50,9 @@ class EmployeeOverview extends Component {
                         });
                     }
                 },
+
                 (error) => {
                     this.setState({
-                        isLoaded: true,
                         error
                     });
                 }
@@ -56,6 +60,10 @@ class EmployeeOverview extends Component {
 
         } catch (err) {
             console.log(err);
+            this.setState({
+                error: err,
+                noResult: true,
+            })
         }
     }
 
@@ -95,7 +103,6 @@ class EmployeeOverview extends Component {
             console.log(err);
         }
     }
-
 
     render() {
         return (

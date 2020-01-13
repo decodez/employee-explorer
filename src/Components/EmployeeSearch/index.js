@@ -24,9 +24,23 @@ class EmployeeSearch extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
+        let regexName = /^[a-zA-Z\s]*$/;  
+
         let name = this.state.value;
-        console.log(name);
-        this.props.getEmployeeData(name);
+ 
+        if(name === "") {
+            this.setState({
+                nameValid: false
+            })
+        } else if(!regexName.test(name)) {
+            this.setState({
+                nameValid: false
+            })
+        } else {
+            this.props.getEmployeeData(name);
+        }
+    
+       
         // Validation of name
         
     }
@@ -37,7 +51,7 @@ class EmployeeSearch extends Component {
                 <form onSubmit={this.handleSubmit} className={this.state.nameValid === true ? "employee-search" : "employee-search employee-search--error"}>
                     <label>
                     <input type="text" placeholder="Search for an employee" value={this.state.value} onChange={this.handleChange} />
-                    <p className="error-message"><i className="icon-alert-circle"></i> Sorry the name you have entered is invalid. Please enter a valid name.</p>
+                    <p className="error-message"><i className="icon-alert-circle"></i> Sorry the name you have entered is invalid or empty. Please enter a valid name.</p>
                     </label>
                     <button><i className="icon-search"></i></button>
                 </form>
