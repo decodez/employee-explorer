@@ -1,14 +1,8 @@
-import React, { Component } from 'react'
-
-import EmployeeSearch from '../../Components/EmployeeSearch';
+import React, { Component } from 'react';
 
 const API = "http://api.additivasia.io/api/v1/assignment/employees/";
 
-export default class Explorer extends Component {
-
-    constructor() {
-        super();
-    }
+class EmployeeOverview extends Component {
 
     state = {
         employeeName : "",
@@ -20,9 +14,8 @@ export default class Explorer extends Component {
     };
 
     componentDidMount() {
-        this.getEmployeeData("John Hartman"); 
+        this.getEmployeeData(this.props.match.params.employeeName);
     }
-
 
     async getEmployeeData(employeeName) {
         try {
@@ -102,10 +95,12 @@ export default class Explorer extends Component {
             console.log(err);
         }
     }
+
+
     render() {
+        console.log(this.props);   
         return (
             <div>
-                <EmployeeSearch getEmployeeData={this.getEmployeeData.bind(this)} />
                 <h1>{this.state.employeeName}</h1>
                 <ul>
                     {this.state.directSubordinates.map((employee, key)=>(
@@ -127,3 +122,5 @@ export default class Explorer extends Component {
         )
     }
 }
+
+export default EmployeeOverview;
