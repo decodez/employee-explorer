@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const API = "http://api.additivasia.io/api/v1/assignment/employees/";
+const API = "https://api.additivasia.io/api/v1/assignment/employees/";
 
 class EmployeeOverview extends Component {
 
