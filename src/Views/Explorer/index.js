@@ -4,7 +4,7 @@ import EmployeeSearch from '../../Components/EmployeeSearch';
 
 import './style.scss'
 
-const API = "http://api.additivasia.io/api/v1/assignment/employees/";
+const API = "https://api.additivasia.io/api/v1/assignment/employees/";
 
 export default class Explorer extends Component {
 
