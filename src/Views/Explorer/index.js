@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-
+import { Link } from 'react-router-dom';
 import EmployeeSearch from '../../Components/EmployeeSearch';
+
+import './style.scss'
 
 const API = "http://api.additivasia.io/api/v1/assignment/employees/";
 
@@ -32,15 +34,16 @@ export default class Explorer extends Component {
                 .then(
                 (result) => {
                     let directSubordinates = this.state.directSubordinates;
-                    
+                    let employeePosition = this.state.employeePosition;
 
                     if (result[1]) {
                         directSubordinates = result[1]["direct-subordinates"]
+                        employeePosition = result[0];
                     }
                     this.setState({
                         employeeName: employeeName,
                         isLoaded: true,
-                        employeePosition: result[0],
+                        employeePosition: employeePosition,
                         directSubordinates: directSubordinates,
                         nonDirectSubordinates: []
                     });
@@ -104,25 +107,36 @@ export default class Explorer extends Component {
     }
     render() {
         return (
-            <div>
-                <EmployeeSearch getEmployeeData={this.getEmployeeData.bind(this)} />
-                <h1>{this.state.employeeName}</h1>
-                <ul>
-                    {this.state.directSubordinates.map((employee, key)=>(
-                        <li key={key}>
-                            {employee}
-                        </li>
-                    ))
-                    }
-                </ul>
-                <ul>
-                    {this.state.nonDirectSubordinates.map((employee, key)=>(
-                        <li key={key}>
-                            {employee}
-                        </li>
-                    ))
-                    }
-                </ul>
+            <div className="employee-explorer">
+                <h1 className="page-title">Employee Explorer</h1>
+                <div className="container">
+                    <EmployeeSearch getEmployeeData={this.getEmployeeData.bind(this)} />
+                    <h1 className="employee-name">{this.state.employeeName}</h1>
+                    <p className="employee-position">{this.state.employeePosition}</p>
+ 
+                    <div className="employee-list">
+                        <ul>
+                            {this.state.directSubordinates.map((employee, key)=>(
+                                <li key={key}>
+                                    <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
+                                </li>
+                            ))
+                            }
+                        </ul>
+                    </div>
+                    
+                    <div className="employee-list">
+                        <ul>
+                            {this.state.nonDirectSubordinates.map((employee, key)=>(
+                                <li key={key}>
+                                    <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
+                                </li>
+                            ))
+                            }
+                        </ul>
+                    </div>
+                   
+                </div>
             </div>
         )
     }

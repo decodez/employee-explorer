@@ -1,0 +1,143 @@
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/fonts/Avenir-Light.otf');
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 300;
+  src: url('/fonts/Avenir-Book.otf');
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/Avenir-Medium.otf');
+}
+
+@font-face {
+  font-family: 'Avenir';
+  font-style: bold;
+  font-weight: 500;
+  src: url('/fonts/Avenir-Black.otf');
+}
+
+
+$icomoon-font-family: "icomoon" !default;
+$icomoon-font-path: "/fonts" !default;
+
+$icon-night: "\e904";
+$icon-sun: "\e905";
+$icon-alert-circle: "\e900";
+$icon-loader: "\e901";
+$icon-rotate-cw: "\e902";
+$icon-search: "\e903";
+
+
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ofv5aq');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?ofv5aq#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?ofv5aq') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?ofv5aq') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?ofv5aq##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-night {
+  &:before {
+    content: $icon-night; 
+  }
+}
+.icon-sun {
+  &:before {
+    content: $icon-sun; 
+  }
+}
+.icon-alert-circle {
+  &:before {
+    content: $icon-alert-circle; 
+  }
+}
+.icon-loader {
+  &:before {
+    content: $icon-loader; 
+  }
+}
+.icon-rotate-cw {
+  &:before {
+    content: $icon-rotate-cw; 
+  }
+}
+.icon-search {
+  &:before {
+    content: $icon-search; 
+  }
+}
+
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  background-color: #f7f7f7;
+  transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  &.dark-mode {
+    background-color: #000;
+  }
+}
+
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  @for $i from 1 through 12 {
+    .col-#{$i} {
+      width: 100% * ($i/12);
+    }
+  }
+  
+}
+
+
+.page-title {
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 700;
+}
