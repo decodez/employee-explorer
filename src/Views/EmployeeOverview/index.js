@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 const API = "http://api.additivasia.io/api/v1/assignment/employees/";
 
@@ -14,8 +15,10 @@ class EmployeeOverview extends Component {
     };
 
     componentDidMount() {
-        this.getEmployeeData(this.props.match.params.employeeName);
+        const { params } = this.props.match
+        this.getEmployeeData(params.employeeName);
     }
+
 
     async getEmployeeData(employeeName) {
         try {
@@ -43,9 +46,6 @@ class EmployeeOverview extends Component {
                         });
                     }
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -98,26 +98,43 @@ class EmployeeOverview extends Component {
 
 
     render() {
-        console.log(this.props);   
         return (
-            <div>
-                <h1>{this.state.employeeName}</h1>
-                <ul>
-                    {this.state.directSubordinates.map((employee, key)=>(
-                        <li key={key}>
-                            {employee}
-                        </li>
-                    ))
-                    }
-                </ul>
-                <ul>
-                    {this.state.nonDirectSubordinates.map((employee, key)=>(
-                        <li key={key}>
-                            {employee}
-                        </li>
-                    ))
-                    }
-                </ul>
+            <div className="employee-overview">
+                <h1 className="page-title">Employee Overview</h1>
+                <div className="container">                
+                    <div className="employee-info">
+                    
+                        <div className="employee-info__detail">
+                            {this.state.employeeName.length > 0 && <h2 className="employee-info__name">{this.state.employeeName}</h2>}
+                            
+                            {this.state.employeePosition.length > 0 && <p className="employee-info__position">{this.state.employeePosition}</p>}
+                        </div>
+                        
+                        {this.state.directSubordinates.length > 0 && <div className="employee-info__list">
+                            <h3>Direct Subordinates</h3>
+                            <ul>
+                                {this.state.directSubordinates.map((employee, key)=>(
+                                    <li key={key}>
+                                        {employee}
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                        </div> }
+                        
+                        {this.state.nonDirectSubordinates.length > 0 && <div className="employee-info__list">
+                            <h3>Non-direct Subordinates</h3>
+                            <ul>
+                                {this.state.nonDirectSubordinates.map((employee, key)=>(
+                                    <li key={key}>
+                                        {employee}
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                        </div> }
+                    </div>
+                </div>
             </div>
         )
     }

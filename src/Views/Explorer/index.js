@@ -21,10 +21,6 @@ export default class Explorer extends Component {
         error: null,
     };
 
-    componentDidMount() {
-        this.getEmployeeData("John Hartman"); 
-    }
-
 
     async getEmployeeData(employeeName) {
         try {
@@ -53,9 +49,7 @@ export default class Explorer extends Component {
                         });
                     }
                 },
-                // Note: it's important to handle errors here
-                // instead of a catch() block so that we don't swallow
-                // exceptions from actual bugs in components.
+
                 (error) => {
                     this.setState({
                         isLoaded: true,
@@ -111,31 +105,39 @@ export default class Explorer extends Component {
                 <h1 className="page-title">Employee Explorer</h1>
                 <div className="container">
                     <EmployeeSearch getEmployeeData={this.getEmployeeData.bind(this)} />
-                    <h1 className="employee-name">{this.state.employeeName}</h1>
-                    <p className="employee-position">{this.state.employeePosition}</p>
- 
-                    <div className="employee-list">
-                        <ul>
-                            {this.state.directSubordinates.map((employee, key)=>(
-                                <li key={key}>
-                                    <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
-                                </li>
-                            ))
-                            }
-                        </ul>
-                    </div>
-                    
-                    <div className="employee-list">
-                        <ul>
-                            {this.state.nonDirectSubordinates.map((employee, key)=>(
-                                <li key={key}>
-                                    <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
-                                </li>
-                            ))
-                            }
-                        </ul>
-                    </div>
                    
+                    <div className="employee-info">
+                       
+                        <div className="employee-info__detail">
+                            {this.state.employeeName.length > 0 && <h2 className="employee-info__name">{this.state.employeeName}</h2>}
+                            
+                            {this.state.employeePosition.length > 0 && <p className="employee-info__position">{this.state.employeePosition}</p>}
+                        </div>
+                        
+                        {this.state.directSubordinates.length > 0 && <div className="employee-info__list">
+                            <h3>Direct Subordinates</h3>
+                            <ul>
+                                {this.state.directSubordinates.map((employee, key)=>(
+                                    <li key={key}>
+                                        <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                        </div> }
+                        
+                        {this.state.nonDirectSubordinates.length > 0 && <div className="employee-info__list">
+                            <h3>Non-direct Subordinates</h3>
+                            <ul>
+                                {this.state.nonDirectSubordinates.map((employee, key)=>(
+                                    <li key={key}>
+                                        <Link to={{pathname:`/overview/${employee}`}} >{employee}</Link>
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                        </div> }
+                    </div>
                 </div>
             </div>
         )

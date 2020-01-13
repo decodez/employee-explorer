@@ -141,3 +141,49 @@ body {
   text-align: center;
   font-weight: 700;
 }
+
+.employee-info {
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+  background-color: white;
+
+  &__detail {
+      background-color: #34495e;
+      color: white;
+  }
+  &__name {
+      text-align: center;
+      padding: 20px 20px 0px 20px;
+      margin-bottom: 0;
+  }
+  &__position {
+      font-weight: 300;
+      text-align: center;
+      margin-top: 0;
+      padding-bottom: 20px;
+  }
+  &__list {
+      padding: 0px 20px 20px 20px; 
+      h3 {
+          margin: 0;
+          padding: 10px;
+          background-color: #bdc3c7;
+          color: black;
+      }
+      ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          border: 1px solid #ecf0f1;
+          li {
+              display: block;
+              padding: 10px 20px;
+              background-color: #ecf0f1;
+              &:nth-child(2n) {
+                  background-color: white;
+              }
+          }
+      }
+  }
+}
